@@ -4,7 +4,7 @@
     "scripts": {
         "create": "blueprint create",
         "start": "blueprint run",
-        "build": "blueprint build",
+        "build": "blueprint build --all",
         "lint": "eslint . --ext ts --report-unused-disable-directives --max-warnings 0",
         "lint:fix": "eslint . --ext ts --report-unused-disable-directives --max-warnings 0 --fix",
         "test": "jest"

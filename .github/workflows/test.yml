@@ -10,5 +10,7 @@ jobs:
             node-version: 16
       - name: Install dependencies
         run: yarn install
+      - name: Build contracts
+        run: yarn run build
       - name: Run tests
         run: yarn run test
