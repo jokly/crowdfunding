@@ -21,3 +21,27 @@ If the target amount is fulfilled within the specified deadline, the beneficiary
 5. **Contributor Refund.**
 Contributors have the option to request a refund of their contributed amount if the project expires.
 
+## Project structure
+
+-   `contracts` - source code of all the smart contracts of the project and their dependencies.
+-   `wrappers` - wrapper classes (implementing `Contract` from ton-core) for the contracts, including any [de]serialization primitives and compilation functions.
+-   `tests` - tests for the contracts.
+-   `scripts` - scripts used by the project, mainly the deployment scripts.
+
+## How to use
+
+### Build
+
+`yarn blueprint build`
+
+### Test
+
+`yarn blueprint test`
+
+### Deploy or run another script
+
+`yarn blueprint run`
+
+### Add a new contract
+
+`yarn blueprint create ContractName`
