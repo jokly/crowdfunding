@@ -13,18 +13,17 @@ describe('Crowdfunding', () => {
 
         const deployer = await blockchain.treasury('deployer');
 
-        crowdfunding = blockchain.openContract(await Crowdfunding.fromInit(
-            deployer.getSender().address,
-            {
+        crowdfunding = blockchain.openContract(
+            await Crowdfunding.fromInit(deployer.getSender().address, {
                 $$type: 'CrowdfundingParams',
                 title: 'MyTitle',
                 description: 'MyDescription',
                 targetContribution: toNano('100'),
                 minContribution: toNano('0.1'),
                 deadline: BigInt(getUnixTimestampNow()),
-                beneficiary: deployer.getSender().address
-            },
-        ));
+                beneficiary: deployer.getSender().address,
+            }),
+        );
 
         const deployResult = await crowdfunding.send(
             deployer.getSender(),
@@ -34,7 +33,7 @@ describe('Crowdfunding', () => {
             {
                 $$type: 'Deploy',
                 queryId: 0n,
-            }
+            },
         );
 
         expect(deployResult.transactions).toHaveTransaction({

@@ -22,7 +22,7 @@ describe('CrowdfundingFactory', () => {
             {
                 $$type: 'Deploy',
                 queryId: 0n,
-            }
+            },
         );
 
         expect(deployResult.transactions).toHaveTransaction({
