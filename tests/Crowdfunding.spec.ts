@@ -1,6 +1,6 @@
 import { Blockchain, SandboxContract } from '@ton-community/sandbox';
 import { toNano } from 'ton-core';
-import { Crowdfunding, StartCrowdfunding } from '../wrappers/Crowdfunding';
+import { Crowdfunding } from '../wrappers/Crowdfunding';
 import '@ton-community/test-utils';
 import { getUnixTimestampNow } from './utils';
 
