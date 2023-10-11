@@ -1,31 +1,27 @@
 import "@stdlib/deploy";
 import "./crowdfunding.tact";
 
-message StartCrowdfunding {
-    params: CrowdfundingParams;
-}
-
 contract CrowdfundingFactory with Deployable {
     const MIN_VALUE_TO_START: Int = ton("1.0");
     const MAX_DEADLINE: Int = 31536000; // 1 year
 
-    crowdfundings: map<Address, Bool>;
+    seqno: Int as uint256 = 0;
 
     init() {
-        self.crowdfundings = emptyMap();
     }
 
-    receive(msg: StartCrowdfunding) {
+    receive(msg: CrowdfundingParams) {
         let ctx: Context = context();
         
         require(ctx.value >= self.MIN_VALUE_TO_START, "Not enough funds to start crowdfunding");
-        require(msg.params.deadline - now() <= self.MAX_DEADLINE, "Deadline is too far in the future");
+        require(msg.deadline - now() <= self.MAX_DEADLINE, "Deadline is too far in the future");
 
-        let initCrowdfunding: StateInit = initOf Crowdfunding(sender(), msg.params);
+        let initCrowdfunding: StateInit = initOf Crowdfunding(myAddress(), self.seqno);
         let addressCrowdfunding: Address = contractAddress(initCrowdfunding);
-
-        let savedCrowdfunding: Bool? = self.crowdfundings.get(addressCrowdfunding);
-        require(savedCrowdfunding == null, "Crowdfunding with such params already exists");
+        let start: StartCrowdfunding = StartCrowdfunding{
+            creator: sender(),
+            params: msg
+        };
 
         send(SendParameters{
             to: addressCrowdfunding,
@@ -34,13 +30,17 @@ contract CrowdfundingFactory with Deployable {
             bounce: false,
             code: initCrowdfunding.code,
             data: initCrowdfunding.data,
-            body: Deploy{queryId: 0}.toCell()
+            body: start.toCell()
         });
 
-        self.crowdfundings.set(addressCrowdfunding, true);
+        self.seqno = self.seqno + 1;
     }
 
-    get fun crowdfundings(): map<Address, Bool> {
-        return self.crowdfundings;
+    get fun getLastSeqno(): Int {
+        return self.seqno;
+    }
+
+    get fun getCrowdfundingAddress(seqno: Int): Address {
+        return contractAddress(initOf Crowdfunding(myAddress(), seqno));
     }
 }
