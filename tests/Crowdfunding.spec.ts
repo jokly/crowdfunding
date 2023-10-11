@@ -1,6 +1,6 @@
 import { Blockchain, SandboxContract } from '@ton-community/sandbox';
 import { toNano } from 'ton-core';
-import { Crowdfunding } from '../wrappers/Crowdfunding';
+import { Crowdfunding, StartCrowdfunding } from '../wrappers/Crowdfunding';
 import '@ton-community/test-utils';
 import { getUnixTimestampNow } from './utils';
 
@@ -13,17 +13,7 @@ describe('Crowdfunding', () => {
 
         const deployer = await blockchain.treasury('deployer');
 
-        crowdfunding = blockchain.openContract(
-            await Crowdfunding.fromInit(deployer.getSender().address, {
-                $$type: 'CrowdfundingParams',
-                title: 'MyTitle',
-                description: 'MyDescription',
-                targetContribution: toNano('100'),
-                minContribution: toNano('0.1'),
-                deadline: BigInt(getUnixTimestampNow()),
-                beneficiary: deployer.getSender().address,
-            }),
-        );
+        crowdfunding = blockchain.openContract(await Crowdfunding.fromInit(deployer.getSender().address, 0n));
 
         const deployResult = await crowdfunding.send(
             deployer.getSender(),
@@ -31,8 +21,17 @@ describe('Crowdfunding', () => {
                 value: toNano('0.05'),
             },
             {
-                $$type: 'Deploy',
-                queryId: 0n,
+                $$type: 'StartCrowdfunding',
+                creator: deployer.getSender().address,
+                params: {
+                    $$type: 'CrowdfundingParams',
+                    title: '',
+                    description: '',
+                    targetContribution: 0n,
+                    minContribution: 0n,
+                    deadline: BigInt(getUnixTimestampNow()),
+                    beneficiary: deployer.getSender().address,
+                },
             },
         );
 
