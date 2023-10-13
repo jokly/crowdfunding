@@ -7,19 +7,19 @@ This project is a decentralized crowdfunding application built on the TON blockc
 ## Features
 
 1. **Start Crowdfunding.**
-Users can initiate a crowdfunding campaign by deploying the smart contract with the necessary campaign details.
+   Users can initiate a crowdfunding campaign by deploying the smart contract with the necessary campaign details.
 
 2. **View Crowdfunding Info.**
-Anyone can view the details of ongoing crowdfunding campaigns, including the target amount, deadline, beneficiary, and current contributions.
+   Anyone can view the details of ongoing crowdfunding campaigns, including the target amount, deadline, beneficiary, and current contributions.
 
 3. **Contribute.**
-Anyone can contribute funds to a specific crowdfunding campaign by sending the desired amount to the smart contract.
+   Anyone can contribute funds to a specific crowdfunding campaign by sending the desired amount to the smart contract.
 
 4. **Beneficiary Withdrawal.**
-If the target amount is fulfilled within the specified deadline, the beneficiary can withdraw the funds raised for the campaign.
+   If the target amount is fulfilled within the specified deadline, the beneficiary can withdraw the funds raised for the campaign.
 
 5. **Contributor Refund.**
-Contributors have the option to request a refund of their contributed amount if the project expires.
+   Contributors have the option to request a refund of their contributed amount if the project expires.
 
 ## Project structure
 
@@ -30,18 +30,17 @@ Contributors have the option to request a refund of their contributed amount if 
 
 ## How to use
 
-### Build
+-   `yarn build` - build all contracts
+-   `yarn lint` - lint TypeScript code
+-   `yarn lint:fix` - fix linter errors
+-   `yarn test` - run tests for contracts
 
-`yarn blueprint build`
+## Development
 
-### Test
+### VS Code
 
-`yarn blueprint test`
+Extensions:
 
-### Deploy or run another script
-
-`yarn blueprint run`
-
-### Add a new contract
-
-`yarn blueprint create ContractName`
+-   [TACT](https://marketplace.visualstudio.com/items?itemName=KonVik.tact-lang-vscode)
+-   [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+-   [Jest](https://marketplace.visualstudio.com/items?itemName=Orta.vscode-jest)
