@@ -3,7 +3,7 @@ import "./crowdfunding.tact";
 
 contract CrowdfundingFactory with Deployable {
     const MIN_VALUE_TO_START: Int = ton("1.0");
-    const MAX_DEADLINE: Int = 31536000; // 1 year
+    const MAX_DEADLINE: Int = 365 * 24 * 60 * 60; // 1 year
 
     seqno: Int as uint256 = 0;
 
